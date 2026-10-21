@@ -133,24 +133,6 @@ If true, lower-priority robots yield for 1 step while higher-priority robots cle
 
 ---
 
-## 🚀 How to Run the Project
-
-### Option A: One-Click Launch (Windows)
-Double-click the bundled batch file:
-```cmd
-run_demo.bat
-```
-
-### Option B: Terminal Command
-```bash
-# Navigate to project folder
-cd "D:\AI project"
-
-# Run main simulation
-python main.py
-```
-
----
 
 ## 🎮 Interactive Controls & Shortcuts
 
@@ -198,35 +180,6 @@ python main.py
 
 ---
 
-## 🎓 Faculty Viva Voce Q&A Cheat Sheet
-
-### Q1: Why did you choose $A^*$ instead of Dijkstra's Algorithm?
-> **Answer:** Dijkstra's algorithm explores nodes uniformly in all directions (concentric circles) regardless of where the victim is located, leading to excessive node expansions. $A^*$ uses a heuristic $h(n)$ (Manhattan distance) to guide the search directionally towards the victim. This drastically reduces the number of explored states while mathematically guaranteeing the optimal shortest path.
-
-### Q2: Why is Manhattan distance chosen over Euclidean distance on this grid?
-> **Answer:** In our simulation, robots move in 4 cardinal orthogonal directions (Right, Left, Up, Down). On an orthogonal grid without diagonal traversal, Euclidean distance ($\sqrt{\Delta x^2 + \Delta y^2}$) underestimates the actual step distance too severely. Manhattan distance ($|\Delta x| + |\Delta y|$) represents the exact shortest distance in an obstacle-free grid, making it an admissible and consistent heuristic that expands fewer redundant nodes.
-
-### Q3: What is the condition for $A^*$ to be optimal?
-> **Answer:** $A^*$ is guaranteed to find the optimal path if the heuristic function $h(n)$ is **admissible** (it never overestimates the true cost to reach the goal: $h(n) \le h^*(n)$). When used with graph search (preventing re-visiting nodes in the closed set), the heuristic must also be **consistent** (monotonic), satisfying $h(n) \le c(n, n') + h(n')$.
-
-### Q4: How does multi-agent coordination prevent collisions between the robots?
-> **Answer:** We employ **Prioritized Planning with Space-Time Reservation Tables**:
-> 1. Higher-priority Agent 1 plans its route using standard $A^*$.
-> 2. Agent 1's trajectory is registered in a reservation table $(x, y, t)$.
-> 3. Agent 2 uses **Space-Time $A^*$**, treating Agent 1's scheduled positions as dynamic obstacles in 3D $(x, y, t)$ space.
-> 4. Agent 2 can perform a `WAIT` action (cost = 1) or take an alternative detour when an intersection is detected.
-> 5. A secondary runtime check validates every step before physical execution to prevent vertex and edge-swap conflicts.
-
-### Q5: What is the difference between a Vertex Conflict and an Edge Swap Conflict?
-> **Answer:**
-> - **Vertex Conflict:** Two robots attempt to occupy the exact same coordinate $(x, y)$ at the same time step $t$ ($pos_1(t) == pos_2(t)$).
-> - **Edge Swap Conflict:** Two robots swap positions across an edge in opposite directions at the same time step ($pos_1(t) == pos_2(t+1) \land pos_1(t+1) == pos_2(t)$).
-> Our Space-Time $A^*$ explicitly prevents both types by reserving vertex cells and directional transition edges.
-
-### Q6: What happens if a rescuer clicks to place rubble directly on a planned path?
-> **Answer:** The simulation features **Real-Time Dynamic Replanning**. When the grid state changes, `replan_from_current_positions()` triggers instantly from each robot's current coordinates, calculating new collision-free paths around the newly created obstacle in under 2 milliseconds.
-
----
 
 ## 📊 File Structure & Module Overview
 
