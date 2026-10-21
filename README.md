@@ -1,12 +1,5 @@
 # AI Disaster Rescue Robot Using A* and Multi-Agent Planning
 
-**AI Case Study Project**  
-**Presented by:** Haritha  
-**Register Number:** 24BCE0412  
-**Institution:** VIT Vellore, Department of Computer Science and Engineering  
-
----
-
 ## 📌 Executive Summary & Abstract
 The **AI Disaster Rescue Robot** simulation is an autonomous multi-robot mission control platform designed to search, triage, and extract trapped civilians from hazardous, disaster-affected ruins (structural collapses, earthquakes, industrial explosions). The platform integrates:
 1. **The $A^*$ Pathfinding Algorithm** with an admissible Manhattan distance heuristic to calculate mathematically optimal, low-cost routes through dynamic debris corridors in under 1 millisecond.
